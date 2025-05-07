@@ -12,10 +12,47 @@
       margin: 0;
       font-size: 5rem;
       font-family: sans-serif;
+      background: #000;
+      color: white;
+    }
+
+    span.letter {
+      display: inline-block;
+      transition: transform 0.3s ease-in-out;
     }
   </style>
 </head>
 <body>
-  BOGIES
+  <div id="bogies"></div>
+
+  <script>
+    const text = 'BOGIES';
+    const container = document.getElementById('bogies');
+
+    // Split text into spans
+    [...text].forEach(letter => {
+      const span = document.createElement('span');
+      span.className = 'letter';
+      span.textContent = letter;
+      container.appendChild(span);
+    });
+
+    // Zany animation loop
+    function animateLetters() {
+      const letters = document.querySelectorAll('.letter');
+      letters.forEach((letter, i) => {
+        setTimeout(() => {
+          letter.style.transform = `
+            rotate(${Math.random() * 360}deg)
+            translateY(${Math.random() * 50 - 25}px)
+            scale(${Math.random() * 1.5 + 0.5})
+          `;
+          letter.style.color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        }, i * 100);
+      });
+    }
+
+    setInterval(animateLetters, 1000);
+  </script>
 </body>
 </html>
